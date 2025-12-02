@@ -5,11 +5,7 @@ ranges = STDIN.read.chomp.split(',').map do |range_str|
 end
 
 invalid = ranges.flat_map do |range|
-  range.filter do |i|
-    i_str = i.to_s
-    mid = i_str.length / 2
-    i_str[0...mid] == i_str[mid..]
-  end
+  range.filter {|i| /^(\d+)\1$/ =~ i.to_s}
 end
 
 puts invalid.sum
