@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 ranges = STDIN.read.chomp.split(',').map do |range_str|
-  from, to = range_str.split('-').map(&:to_i)
-  from..to
+  Range.new(*range_str.split('-').map(&:to_i))
 end
 
 invalid = ranges.flat_map do |range|
