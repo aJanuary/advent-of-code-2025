@@ -1,22 +1,20 @@
 #!/usr/bin/env ruby
 
-d = STDIN.readlines.map(&:chomp).map(&:chars).transpose
+problems = STDIN.readlines.map(&:chomp).map(&:chars).transpose.reverse
 
 results = []
 operands = []
-operator = nil
-d.each do |l|
+problems.each do |l|
   if l.all? {|x| x == ' '}
-    results << operands.inject(operator)
     operands = []
   else
+    operands << l[0..-2].join.to_i
+
     if l[-1] != ' '
       operator = l[-1].to_sym
+      results << operands.inject(operator)
     end
-
-    operands << l[0..-2].join.to_i
   end
 end
-results << operands.inject(operator)
 
 puts results.sum
